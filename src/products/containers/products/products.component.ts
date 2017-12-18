@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { PizzaState } from '../../store/reducers/pizzas.reducer';
 import { Observable } from 'rxjs/Observable';
 import { LoadPizzas } from '../../store/actions/pizzas.actions';
-import { getAllPizzas } from '../../store/reducers';
+import { getAllPizzas } from '../../store/selectors';
 
 @Component({
     selector: 'products',
