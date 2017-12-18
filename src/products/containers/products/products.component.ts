@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Pizza } from '../../models/pizza.model';
 import { Store } from '@ngrx/store';
 import { PizzaState } from '../../store/reducers/pizzas.reducer';
-import { getAllPizzas } from '../../store/reducers';
 import { Observable } from 'rxjs/Observable';
 import { LoadPizzas } from '../../store/actions/pizzas.actions';
+import { getAllPizzas } from '../../store/reducers';
 
 @Component({
     selector: 'products',
