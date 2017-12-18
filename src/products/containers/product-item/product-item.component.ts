@@ -8,8 +8,9 @@ import { Topping } from '../../models/topping.model';
 import { ToppingsService } from '../../services/toppings.service';
 import { ProductState } from '../../store/reducers';
 import { Store } from '@ngrx/store';
-import { getSelectedPizza } from '../../store/selectors';
+import { getAllToppings, getSelectedPizza } from '../../store/selectors';
 import { Observable } from 'rxjs/Observable';
+import { LoadToppings } from '../../store/actions';
 
 @Component({
     selector: 'product-item',
@@ -19,7 +20,7 @@ import { Observable } from 'rxjs/Observable';
                 class="product-item">
             <pizza-form
                     [pizza]="pizza$ | async"
-                    [toppings]="toppings"
+                    [toppings]="toppings$ | async"
                     (selected)="onSelect($event)"
                     (create)="onCreate($event)"
                     (update)="onUpdate($event)"
@@ -34,14 +35,16 @@ import { Observable } from 'rxjs/Observable';
 export class ProductItemComponent implements OnInit {
     pizza$: Observable<Pizza>;
     visualise: Pizza;
-    toppings: Topping[];
+    toppings$: Observable<Topping[]>;
 
     constructor(private store: Store<ProductState>) {
     }
 
     ngOnInit() {
 
+        this.store.dispatch(new LoadToppings());
         this.pizza$ = this.store.select(getSelectedPizza);
+        this.toppings$ = this.store.select(getAllToppings);
     }
 
     onSelect(event: number[]) {
