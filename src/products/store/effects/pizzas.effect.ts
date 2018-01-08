@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PizzasService } from '../../services';
 
 import { Actions, Effect } from '@ngrx/effects';
-import { LOAD_PIZZAS, LoadPizzasFail, LoadPizzasSuccess } from '../actions/pizzas.actions';
+import { LOAD_PIZZAS, LoadPizzasFail, LoadPizzasSuccess } from '../actions/pizzas.action';
 import * as fromRoot from '../../../app/store';
 
 import { catchError, map, switchMap } from 'rxjs/operators';

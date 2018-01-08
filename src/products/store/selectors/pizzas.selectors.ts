@@ -1,27 +1,27 @@
 import * as fromReducers from '../reducers/pizzas.reducer';
 import { createSelector } from '@ngrx/store';
-import { getProductsState, ProductState } from '../reducers';
+import { getProductsState, ProductsState } from '../reducers';
 import { getRouterState } from '../../../app/store/reducers';
 import { Pizza } from '../../models/pizza.model';
-import { getSelectedToppingsSelector, getToppingsEntities } from './toppings.selectors';
+import { getSelectedToppings, getToppingEntities } from './toppings.selectors';
 
-export const getPizzasState = createSelector(getProductsState, (state: ProductState) => state.pizzas);
+export const getPizzasState = createSelector(getProductsState, (state: ProductsState) => state.pizzas);
 
-export const getPizzasEntitiesSelector = createSelector(
+export const getPizzasEntities = createSelector(
     getPizzasState,
     fromReducers.getPizzasEntities
 );
 
 export const getSelectedPizza = createSelector(
-    getPizzasEntitiesSelector,
+    getPizzasEntities,
     getRouterState,
     (entities, router): Pizza => router.state && entities[router.state.params.pizzaId]
 );
 
 export const getPizzasVisualized = createSelector(
     getSelectedPizza,
-    getToppingsEntities,
-    getSelectedToppingsSelector,
+    getToppingEntities,
+    getSelectedToppings,
     (pizza, toppingsEntities, selectedToppings) => {
         const toppings = selectedToppings.map(id => toppingsEntities[id]);
         return {
@@ -32,19 +32,19 @@ export const getPizzasVisualized = createSelector(
 );
 
 export const getAllPizzas = createSelector(
-    getPizzasEntitiesSelector,
+    getPizzasEntities,
     entities =>
         Object.keys(entities)
             .map(id =>
                 entities[parseInt(id)])
 );
 
-export const getPizzasLoadedSelector = createSelector(
+export const getPizzasLoaded = createSelector(
     getPizzasState,
     fromReducers.getPizzasLoaded
 );
 
-export const getPizzasLoadingSelector = createSelector(
+export const getPizzasLoading = createSelector(
     getPizzasState,
     fromReducers.getPizzasLoading
 );

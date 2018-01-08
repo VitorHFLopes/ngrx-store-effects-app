@@ -19,7 +19,7 @@ export const initialState: ToppingsState = {
     selectedToppings: []
 };
 
-export function toppingsReducer(state = initialState, action: ToppingsActions): ToppingsState {
+export function reducer(state = initialState, action: ToppingsActions): ToppingsState {
 
     switch (action.type) {
 
@@ -78,6 +78,6 @@ export function toppingsReducer(state = initialState, action: ToppingsActions): 
 // useful, best practice
 export const getSelectedToppings = (state: ToppingsState) => state.selectedToppings;
 export const getToppingEntities = (state: ToppingsState) => state.entities;
-export const getToppingLoaded = (state: ToppingsState) => state.loaded;
-export const getToppingLoading = (state: ToppingsState) => state.loading;
+export const getToppingsLoaded = (state: ToppingsState) => state.loaded;
+export const getToppingsLoading = (state: ToppingsState) => state.loading;
 

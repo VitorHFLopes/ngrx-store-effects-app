@@ -1,36 +1,33 @@
 import { createSelector } from '@ngrx/store';
-import { getProductsState, ProductState } from '../reducers';
-import {
-    getSelectedToppings, getToppingEntities, getToppingLoaded,
-    getToppingLoading
-} from '../reducers/toppings.reducer';
+import { getProductsState, ProductsState } from '../reducers';
+import * as fromToppings from '../reducers/toppings.reducer';
 
 export const getToppingsState = createSelector(
     getProductsState,
-    (state: ProductState) => state.toppings
+    (state: ProductsState) => state.toppings
 );
 
-export const getToppingsEntities = createSelector(
+export const getToppingEntities = createSelector(
     getToppingsState,
-    getToppingEntities
+    fromToppings.getToppingEntities
 );
 
 export const getAllToppings = createSelector(
-    getToppingsEntities,
+    getToppingEntities,
     entities => Object.keys(entities).map(id => entities[id])
 );
 
-export const getSelectedToppingsSelector = createSelector(
+export const getSelectedToppings = createSelector(
     getToppingsState,
-    getSelectedToppings
+    fromToppings.getSelectedToppings
 );
 
 export const getToppingsLoaded = createSelector(
     getToppingsState,
-    getToppingLoaded
+    fromToppings.getToppingsLoaded
 );
 
 export const getToppingsLoading = createSelector(
     getToppingsState,
-    getToppingLoading
+    fromToppings.getToppingsLoading
 );

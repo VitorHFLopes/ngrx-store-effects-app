@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { StoreModule } from '@ngrx/store';
-import { pizzasReducers } from './store/reducers';
+import { reducers } from './store/reducers';
 import { effects } from './store/effects';
 
 // components
@@ -45,7 +45,7 @@ export const ROUTES: Routes = [
         CommonModule,
         ReactiveFormsModule,
         HttpClientModule,
-        StoreModule.forFeature('products', pizzasReducers),
+        StoreModule.forFeature('products', reducers),
         EffectsModule.forFeature(effects),
         RouterModule.forChild(ROUTES)
     ],

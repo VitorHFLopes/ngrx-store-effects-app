@@ -7,7 +7,7 @@ import { Topping } from '../../models/topping.model';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()
-export class ToppingsEffect {
+export class ToppingsEffects {
 
     constructor(private actions$: Actions,
                 private toppingsService: ToppingsService) {

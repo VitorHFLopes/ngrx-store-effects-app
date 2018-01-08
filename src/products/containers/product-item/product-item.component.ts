@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Pizza } from '../../models/pizza.model';
 
 import { Topping } from '../../models/topping.model';
-import { ProductState } from '../../store/reducers';
+import { ProductsState } from '../../store/reducers';
 import { Store } from '@ngrx/store';
 import { getAllToppings, getPizzasVisualized, getSelectedPizza } from '../../store/selectors';
 import { Observable } from 'rxjs/Observable';
@@ -35,7 +35,7 @@ export class ProductItemComponent implements OnInit {
     visualise$: Observable<Pizza>;
     toppings$: Observable<Topping[]>;
 
-    constructor(private store: Store<ProductState>) {
+    constructor(private store: Store<ProductsState>) {
     }
 
     ngOnInit() {

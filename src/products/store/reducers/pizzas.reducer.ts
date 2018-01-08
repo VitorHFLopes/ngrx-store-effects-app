@@ -1,5 +1,5 @@
 import { Pizza } from '../../models/pizza.model';
-import { LOAD_PIZZAS, LOAD_PIZZAS_FAIL, LOAD_PIZZAS_SUCCESS, PizzaActions } from '../actions/pizzas.actions';
+import { LOAD_PIZZAS, LOAD_PIZZAS_FAIL, LOAD_PIZZAS_SUCCESS, PizzaActions } from '../actions/pizzas.action';
 import { CREATE_PIZZA_SUCCESS, REMOVE_PIZZA_SUCCESS, UPDATE_PIZZA_SUCCESS } from '../actions';
 
 export interface PizzaState {
@@ -14,7 +14,7 @@ export const initialState: PizzaState = {
     loading: false
 };
 
-export function pizzasReducer(state = initialState, action: PizzaActions): PizzaState {
+export function reducer(state = initialState, action: PizzaActions): PizzaState {
 
     switch (action.type) {
 
