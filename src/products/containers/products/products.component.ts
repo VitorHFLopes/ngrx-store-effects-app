@@ -6,6 +6,7 @@ import { PizzaState } from '../../store/reducers/pizzas.reducer';
 import { Observable } from 'rxjs/Observable';
 import { LoadPizzas } from '../../store/actions/pizzas.actions';
 import { getAllPizzas } from '../../store/selectors';
+import { LoadToppings } from '../../store/actions';
 
 @Component({
     selector: 'products',
@@ -39,6 +40,7 @@ export class ProductsComponent implements OnInit {
 
     ngOnInit() {
         this.pizzas$ = this._store.select(getAllPizzas);
-        this._store.dispatch(new LoadPizzas())
+        this._store.dispatch(new LoadPizzas());
+        this._store.dispatch(new LoadToppings());
     }
 }
