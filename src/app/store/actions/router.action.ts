@@ -7,7 +7,7 @@ export const FORWARD = '[Router] Forward';
 
 export class Go implements Action {
 
-    readonly type: string;
+    readonly type = GO;
 
     constructor(public payload: {
         path: any[],
@@ -19,12 +19,12 @@ export class Go implements Action {
 
 export class Back implements Action {
 
-    readonly type: string;
+    readonly type = BACK;
 }
 
 export class Forward implements Action {
 
-    readonly type: string;
+    readonly type = FORWARD;
 }
 
 export type Actions =
