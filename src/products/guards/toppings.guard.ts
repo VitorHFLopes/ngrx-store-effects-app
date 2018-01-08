@@ -3,13 +3,13 @@ import { CanActivate } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { ProductState } from '../store/reducers';
-import { getPizzasLoadedSelector } from '../store/selectors';
+import { getToppingsLoaded } from '../store/selectors';
 import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
-import { LoadPizzas } from '../store/actions';
+import { LoadToppings } from '../store/actions';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()
-export class PizzasGuard implements CanActivate {
+export class ToppingsGuard implements CanActivate {
 
     constructor(private store: Store<ProductState>) {
     }
@@ -24,11 +24,11 @@ export class PizzasGuard implements CanActivate {
 
     checkStore(): Observable<boolean> {
 
-        return this.store.select(getPizzasLoadedSelector)
+        return this.store.select(getToppingsLoaded)
             .pipe(
                 tap(loaded => {
                     if (!loaded) {
-                        this.store.dispatch(new LoadPizzas());
+                        this.store.dispatch(new LoadToppings());
                     }
                 }),
                 filter(loaded => loaded),
