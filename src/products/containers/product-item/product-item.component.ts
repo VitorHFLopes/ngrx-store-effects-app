@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Pizza } from '../../models/pizza.model';
+import { PizzasService } from '../../services/pizzas.service';
 
 import { Topping } from '../../models/topping.model';
+import { ToppingsService } from '../../services/toppings.service';
 import { ProductsState } from '../../store/reducers';
 import { Store } from '@ngrx/store';
-import { getAllToppings, getPizzasVisualized, getSelectedPizza } from '../../store/selectors';
+import { getAllToppings, getSelectedPizza } from '../../store/selectors';
 import { Observable } from 'rxjs/Observable';
-import { CreatePizza, RemovePizza, UpdatePizza, VisualizeToppings } from '../../store/actions';
-import { tap } from 'rxjs/operators';
+import { LoadToppings } from '../../store/actions';
 
 @Component({
     selector: 'product-item',
@@ -24,7 +26,7 @@ import { tap } from 'rxjs/operators';
                     (update)="onUpdate($event)"
                     (remove)="onRemove($event)">
                 <pizza-display
-                        [pizza]="visualise$ | async">
+                        [pizza]="visualise">
                 </pizza-display>
             </pizza-form>
         </div>
@@ -32,7 +34,7 @@ import { tap } from 'rxjs/operators';
 })
 export class ProductItemComponent implements OnInit {
     pizza$: Observable<Pizza>;
-    visualise$: Observable<Pizza>;
+    visualise: Pizza;
     toppings$: Observable<Topping[]>;
 
     constructor(private store: Store<ProductsState>) {
@@ -40,38 +42,23 @@ export class ProductItemComponent implements OnInit {
 
     ngOnInit() {
 
-        this.pizza$ = this.store.select(getSelectedPizza)
-            .pipe(
-                // TAP () step out of an observable stream everything we've done inside the stream doesn't get return
-                // anything or mutate the stream
-                tap(
-                    (pizza: Pizza = null) => {
-                        const pizzaExists = pizza && pizza.toppings.length;
-                        const toppings = pizzaExists ? pizza.toppings.map(topping => topping.id) : [];
-                        this.store.dispatch(new VisualizeToppings(toppings));
-                    }
-                )
-            );
+        this.store.dispatch(new LoadToppings());
+        this.pizza$ = this.store.select(getSelectedPizza);
         this.toppings$ = this.store.select(getAllToppings);
-        this.visualise$ = this.store.select(getPizzasVisualized);
     }
 
     onSelect(event: number[]) {
-        this.store.dispatch(new VisualizeToppings(event));
     }
 
     onCreate(event: Pizza) {
-        this.store.dispatch(new CreatePizza(event));
     }
 
     onUpdate(event: Pizza) {
-        this.store.dispatch(new UpdatePizza(event));
     }
 
     onRemove(event: Pizza) {
         const remove = window.confirm('Are you sure?');
         if (remove) {
-            this.store.dispatch(new RemovePizza(event));
         }
     }
 }

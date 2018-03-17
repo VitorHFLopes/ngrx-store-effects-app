@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Pizza } from '../../models/pizza.model';
 import { Store } from '@ngrx/store';
-import { PizzaState } from '../../store/reducers/pizzas.reducer';
+import { PizzasState } from '../../store/reducers/pizzas.reducer';
 import { Observable } from 'rxjs/Observable';
 import { getAllPizzas } from '../../store/selectors';
 
@@ -34,7 +34,7 @@ import { getAllPizzas } from '../../store/selectors';
 export class ProductsComponent implements OnInit {
     pizzas$: Observable<Pizza[]>;
 
-    constructor(private _store: Store<PizzaState>) {
+    constructor(private _store: Store<PizzasState>) {
     }
 
     ngOnInit() {
