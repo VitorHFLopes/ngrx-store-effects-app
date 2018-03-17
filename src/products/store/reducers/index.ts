@@ -3,13 +3,13 @@ import * as fromToppings from './toppings.reducer';
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
 export interface ProductState {
-    pizzas: fromPizzas.PizzaState;
+    pizzas: fromPizzas.PizzasState;
     toppings: fromToppings.ToppingsState;
 }
 
-export const pizzasReducers: ActionReducerMap<ProductState> = {
-    pizzas: fromPizzas.pizzasReducer,
-    toppings: fromToppings.toppingsReducer
+export const reducers: ActionReducerMap<ProductState> = {
+    pizzas: fromPizzas.reducer,
+    toppings: fromToppings.reducer
 };
 
 export const getProductsState = createFeatureSelector<ProductState>('products');
